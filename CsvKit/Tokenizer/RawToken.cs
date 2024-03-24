@@ -1,4 +1,4 @@
-namespace CoreCSV;
+namespace CsvKit;
 
 internal class RawToken(string value, bool isSeparator)
 {

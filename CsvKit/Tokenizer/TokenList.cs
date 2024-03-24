@@ -1,4 +1,4 @@
-namespace CoreCSV;
+namespace CsvKit;
 
 internal class TokenList
 {
@@ -11,6 +11,10 @@ internal class TokenList
         private set => _errorMessage = value;
     }
 
+    public Token this[int index] {
+        get { return TokenItems[index]; }
+    }
+    
     public void AddToken(TokenTypes type, string value)
     {
         if (Error) {
@@ -19,13 +23,18 @@ internal class TokenList
 
         if (type == TokenTypes.StringValue) {
             if (IsLastItemStringValue()) {
-                ErrorOccured($"Missing separator between '{Item[^1].Value}' and '{value}'");
+                ErrorOccured($"Missing separator between '{TokenItems[^1].Value}' and '{value}'");
             }
         }
 
         if (value != string.Empty) {
-            Item.Add(new(type, value.Trim()));
+            TokenItems.Add(new(type, value.Trim()));
         }
+    }
+
+    public int Count()
+    {
+        return TokenItems.Count;
     }
 
     public void ErrorOccured(string message)
@@ -36,22 +45,22 @@ internal class TokenList
 
     public bool IsLastItemSeparator()
     {
-        return Item.Count == 0 || Item[^1].IsSeparator();
+        return TokenItems.Count == 0 || TokenItems[^1].IsSeparator();
     }
 
     public bool IsLastItemStringValue()
     {
-        return Item.Count > 0 && Item[^1].IsStringValue();
+        return TokenItems.Count > 0 && TokenItems[^1].IsStringValue();
     }
 
     public List<string> ToStringList()
     {
-        return Item.Select(token => token.Value).ToList();
+        return TokenItems.Select(token => token.Value).ToList();
     }
     #endregion
 
     #region Private
-    private List<Token> Item { get; } = [];
+    private List<Token> TokenItems { get; } = [];
 
     private string _errorMessage = string.Empty;
     #endregion

@@ -1,4 +1,4 @@
-namespace CoreCSV;
+namespace CsvKit;
 
 internal class RawTokenList
 {
@@ -14,13 +14,7 @@ internal class RawTokenList
 
     public List<string> ToStringList()
     {
-        var result = new List<string>();
-
-        foreach (var token in Items) {
-            result.Add(token.Value);
-        }
-
-        return result;
+        return Items.Select(token => token.Value).ToList();;
     }
     #endregion
 }

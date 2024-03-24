@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCSV", "CoreCSV\CoreCSV.csproj", "{EBC0D770-4EE1-48FF-A6BB-C82B5D9AA340}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvKit", "CsvKit\CsvKit.csproj", "{EBC0D770-4EE1-48FF-A6BB-C82B5D9AA340}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

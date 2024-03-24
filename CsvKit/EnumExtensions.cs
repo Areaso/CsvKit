@@ -1,4 +1,4 @@
-namespace CoreCSV;
+namespace CsvKit;
 
 public static class EnumExtensions
 {

@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace CoreCSV;
+namespace CsvKit;
 
 internal class SourceIterator(string value)
 {
@@ -8,6 +8,7 @@ internal class SourceIterator(string value)
     public char NextValue()
     {
         _position++;
+        
         return _position >= _length
             ? throw new ArgumentOutOfRangeException(nameof(_position), $"in {MethodBase.GetCurrentMethod()?.Name}")
             : value[_position];

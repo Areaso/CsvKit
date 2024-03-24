@@ -1,4 +1,4 @@
-﻿namespace CoreCSV;
+﻿namespace CsvKit;
 
 internal static class Program
 {

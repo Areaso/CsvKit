@@ -1,4 +1,4 @@
-namespace CoreCSV;
+namespace CsvKit;
 
 internal class Token(TokenTypes type, string value)
 {

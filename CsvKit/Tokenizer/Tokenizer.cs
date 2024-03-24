@@ -1,7 +1,6 @@
-using System.Diagnostics;
 using System.Text;
 
-namespace CoreCSV;
+namespace CsvKit;
 
 internal class Tokenizer(string fieldSeparator, string lineSeparator)
 {
