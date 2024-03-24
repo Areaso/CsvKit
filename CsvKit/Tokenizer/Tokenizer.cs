@@ -2,7 +2,7 @@ using System.Text;
 
 namespace CsvKit;
 
-internal class Tokenizer(string fieldSeparator, string lineSeparator)
+internal class Tokenizer(string fieldSeparator, string lineSeparator, string quoteSeparator)
 {
     #region Public
     public TokenList Parse(string input)
@@ -35,13 +35,11 @@ internal class Tokenizer(string fieldSeparator, string lineSeparator)
     #endregion
 
     #region Private
-    private const string Quote = "\"";
+    private readonly char _fieldSep = fieldSeparator[0];
 
-    private readonly Dictionary<char, bool> _separators = new() {
-        { fieldSeparator[0], true },
-        { lineSeparator[0], true },
-        { Quote[0], true }
-    };
+    private readonly char _lineSep = lineSeparator[0];
+
+    private readonly char _quoteSep = quoteSeparator[0];
 
     private RawTokenList TokenizeRaw(string input)
     {
@@ -52,7 +50,7 @@ internal class Tokenizer(string fieldSeparator, string lineSeparator)
         while (!source.EndOfData()) {
             var @char = source.NextValue();
 
-            if (_separators.ContainsKey(@char)) {
+            if (@char == _quoteSep || @char == _fieldSep || @char == _lineSep) {
                 if (rawToken.Length > 0) {
                     rawResult.AddToken(rawToken.ToString(), false);
                     rawToken.Clear();
@@ -99,13 +97,13 @@ internal class Tokenizer(string fieldSeparator, string lineSeparator)
             RawToken? preview;
 
             switch (rawToken.Value) {
-                case Quote:
+                case { } s when s == quoteSeparator:
                     if (result.IsLastItemSeparator()) {
                         result.AddToken(TokenTypes.StringValue, GetQuotedString());
                         break;
                     }
 
-                    result.ErrorOccured($"Unexpected token '{Quote}'");
+                    result.ErrorOccured($"Unexpected token '{quoteSeparator}'");
                     return;
 
                 case { } s when s == fieldSeparator:
@@ -125,15 +123,15 @@ internal class Tokenizer(string fieldSeparator, string lineSeparator)
 
             while (!source.EndOfData()) {
                 var token = source.NextValue();
-                if (token.Value != Quote) {
+                if (token.Value != quoteSeparator) {
                     quotedString.Append(token.Value);
                     continue;
                 }
 
                 countQuotes++;
 
-                if (source.PreviewNextValue() is { Value: Quote }) {
-                    quotedString.Append(Quote[0]);
+                if (source.PreviewNextValue() is { } s && s.Value == quoteSeparator) {
+                    quotedString.Append(quoteSeparator[0]);
                     source.NextValue();
                     countQuotes++;
                     continue;

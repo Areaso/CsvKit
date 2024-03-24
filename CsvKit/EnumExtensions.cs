@@ -1,3 +1,5 @@
+#pragma warning disable CS8524 // The switch expression does not handle some values of its input type (it is not exhaustive) involving an unnamed enum value.
+
 namespace CsvKit;
 
 public static class EnumExtensions
@@ -9,17 +11,23 @@ public static class EnumExtensions
             FieldSeparators.Comma => ",",
             FieldSeparators.Semicolon => ";",
             FieldSeparators.Tabulator => "\t",
-            _ => myEnum.ToString()
         };
     }
-    
+
     public static string ToStringFast(this LineSeparators myEnum)
     {
         return myEnum switch {
             LineSeparators.Native => Environment.NewLine,
             LineSeparators.Unix => "\n",
             LineSeparators.Windows => "\r\n",
-            _ => myEnum.ToString()
+        };
+    }
+
+    public static string ToStringFast(this QuoteSeparators myEnum)
+    {
+        return myEnum switch {
+            QuoteSeparators.SingleQuote => "'",
+            QuoteSeparators.DoubleQuote => "\"",
         };
     }
     #endregion

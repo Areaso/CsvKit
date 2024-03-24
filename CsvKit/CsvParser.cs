@@ -4,16 +4,22 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace CsvKit;
 
-public class CsvParser(FieldSeparators fieldSeparator, LineSeparators lineSeparator)
+public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSeparators quoteSep)
 {
     #region Public
-    public FieldSeparators FieldSeparator { get; } = fieldSeparator;
+    public FieldSeparators FieldSeparator { get; } = fieldSep;
 
-    public LineSeparators LineSeparator { get; } = lineSeparator;
+    public LineSeparators LineSeparator { get; } = lineSep;
+
+    public QuoteSeparators QuoteSeparator { get; } = quoteSep;
 
     public List<List<string>> Run(string source)
     {
-        var tokenizer = new Tokenizer(FieldSeparator.ToStringFast(), LineSeparator.ToStringFast());
+        var tokenizer = new Tokenizer(
+            FieldSeparator.ToStringFast(),
+            LineSeparator.ToStringFast(),
+            QuoteSeparator.ToStringFast());
+        
         return ResultList(tokenizer.Parse(source));
     }
     #endregion

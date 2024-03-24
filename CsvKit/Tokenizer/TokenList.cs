@@ -22,7 +22,8 @@ internal class TokenList
         }
 
         if (type == TokenTypes.StringValue) {
-            if (IsLastItemStringValue()) {
+            // IsLastItemStringValue?
+            if (TokenItems.Count > 0 && TokenItems[^1].IsStringValue()) {
                 ErrorOccured($"Missing separator between '{TokenItems[^1].Value}' and '{value}'");
             }
         }
@@ -46,11 +47,6 @@ internal class TokenList
     public bool IsLastItemSeparator()
     {
         return TokenItems.Count == 0 || TokenItems[^1].IsSeparator();
-    }
-
-    public bool IsLastItemStringValue()
-    {
-        return TokenItems.Count > 0 && TokenItems[^1].IsStringValue();
     }
 
     public List<string> ToStringList()
