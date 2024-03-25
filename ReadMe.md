@@ -1,12 +1,10 @@
 CsvKit
 ======
 
-The library **CoreData** is a specialized micro-ORM (Object Relational Mapper)
-with a focus on a transparent data model, complete control over the data model,
-code-only schema migrations, secure multi-user access and high performance.
+CsvKit is a parser for CSV data. It was created as a byproduct during the development of a parser for complex URL parameters. The focus was on the safe handling of double-quoted strings, including the possibility of containing any characters (including other quotes). The implementation was based on a 2-pass tokenizer.
 
 Hosted on:
-[github.com/prosaldo/CoreData](https://github.com/prosaldo/CoreData)
+[github.com/Areaso/CsvKit](https://github.com/Areaso/CsvKit)
 
 Concepts
 --------
