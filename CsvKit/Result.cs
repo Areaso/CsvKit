@@ -1,34 +1,40 @@
 namespace CsvKit;
 
-public class Result
+public sealed record Result()
 {
-    #region Public
-    public bool IsSuccess { get; }
-
-    public bool IsFailure => !IsSuccess;
-
-    public Error Error { get; }
-
+    #region Static
     public static Result Success()
     {
-        return new(true, Error.None);
+        return new(true, "");
     }
 
-    public static Result Failure(Error error)
+    public static Result Failure(string description)
     {
-        return new(false, error);
+        return new(false, description);
+    }
+    #endregion
+
+    #region Public
+    public string Description { get; } = string.Empty;
+
+    public bool IsSuccess()
+    {
+        return _success;
+    }
+
+    public bool IsFailure()
+    {
+        return !_success;
     }
     #endregion
 
     #region Private
-    private Result(bool isSuccess, Error error)
-    {
-        if ((isSuccess && error != Error.None) || (!isSuccess && error == Error.None)) {
-            throw new ArgumentException("Invalid error", nameof(error));
-        }
+    private readonly bool _success;
 
-        IsSuccess = isSuccess;
-        Error = error;
+    private Result(bool success, string description) : this()
+    {
+        _success = success;
+        Description = description;
     }
     #endregion
 }

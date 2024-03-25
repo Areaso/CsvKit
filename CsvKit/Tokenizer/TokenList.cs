@@ -3,9 +3,8 @@ namespace CsvKit;
 internal class TokenList
 {
     #region Public
-    // ReSharper disable once MemberCanBePrivate.Global
     public bool Error { get; private set; }
-
+    
     public string ErrorMessage {
         get => $"{_errorMessage} : near({string.Join("", ToStringList())})";
         private set => _errorMessage = value;

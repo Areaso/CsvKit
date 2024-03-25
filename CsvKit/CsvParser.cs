@@ -13,44 +13,39 @@ public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSe
 
     public QuoteSeparators QuoteSeparator { get; } = quoteSep;
 
-    public List<List<string>>? Result { get; private set; }
+    public List<List<string>> ResultsData { get; private set; } = [];
 
-    public bool Error { get; private set; }
-
-    public string ErrorMessage { get; private set; } = string.Empty;
-
-    public bool Run(string source)
+    public Result Run(string source)
     {
-        Error = false;
-        ErrorMessage = string.Empty;
-        
+        Result status;
+
         var tokenizer = new Tokenizer(FieldSeparator.ToStringFast(), LineSeparator.ToStringFast(),
             QuoteSeparator.ToStringFast());
 
-        var parsedResult = tokenizer.Parse(source);
+        var tokenizerResult = tokenizer.Parse(source);
 
-        if (parsedResult.Error) {
-            Result = null;
-            Error = true;
-            ErrorMessage = parsedResult.ErrorMessage;
+        if (tokenizerResult.Error) {
+            status = Result.Failure(tokenizerResult.ErrorMessage);
         }
         else {
-            Result = ResultList(parsedResult);
+            ResultsData = ResultList(tokenizerResult);
+            status = Result.Success();
         }
 
-        return parsedResult.Error;
+        return status;
     }
     #endregion
 
     #region Private
-    [SuppressMessage("Performance", "CA1822:Member als statisch markieren")]
-
     // ReSharper disable once MemberCanBeMadeStatic.Local
+    [SuppressMessage("Performance", "CA1822:Member als statisch markieren")]
     private List<List<string>> ResultList(TokenList tokenList)
     {
         var result = new List<List<string>>();
 
         var rowData = new List<string>();
+        var lastTokenType = TokenTypes.StringValue;
+
         for (var i = 0; i < tokenList.Count(); i++) {
             var token = tokenList[i];
 
@@ -60,13 +55,19 @@ public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSe
                     break;
 
                 case TokenTypes.FieldSeparator:
-                    continue;
+                    if (lastTokenType == TokenTypes.FieldSeparator) {
+                        rowData.Add(string.Empty);
+                    }
+
+                    break;
 
                 case TokenTypes.LineSeparator:
                     result.Add(rowData);
-                    rowData.Clear();
+                    rowData = [];
                     break;
             }
+
+            lastTokenType = token.Type;
         }
 
         if (rowData.Count > 0) {
