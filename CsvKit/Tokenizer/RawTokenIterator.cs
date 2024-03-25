@@ -14,12 +14,12 @@ internal class RawTokenIterator(IReadOnlyList<RawToken> value)
             : value[_position];
     }
 
-    public RawToken? PreviewNextValue()
+    public char PreviewNextChar()
     {
         var previewPosition = _position + 1;
         return previewPosition >= _length
-            ? null
-            : value[previewPosition];
+            ? '\0'
+            : value[previewPosition].Value[0];
     }
 
     public bool EndOfData()

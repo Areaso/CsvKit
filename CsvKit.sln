@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvKitDemo", "CsvKitDemo\CsvKitDemo.csproj", "{35054DD9-09D1-4B60-912A-8EDABB18D3D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvKitTests", "CsvKitTests\CsvKitTests.csproj", "{C98070CE-71FF-48F5-BB60-558B0A9FD754}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +31,18 @@ Global
 		{EBC0D770-4EE1-48FF-A6BB-C82B5D9AA340}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBC0D770-4EE1-48FF-A6BB-C82B5D9AA340}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBC0D770-4EE1-48FF-A6BB-C82B5D9AA340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35054DD9-09D1-4B60-912A-8EDABB18D3D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35054DD9-09D1-4B60-912A-8EDABB18D3D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35054DD9-09D1-4B60-912A-8EDABB18D3D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35054DD9-09D1-4B60-912A-8EDABB18D3D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C98070CE-71FF-48F5-BB60-558B0A9FD754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C98070CE-71FF-48F5-BB60-558B0A9FD754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C98070CE-71FF-48F5-BB60-558B0A9FD754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C98070CE-71FF-48F5-BB60-558B0A9FD754}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EBC0D770-4EE1-48FF-A6BB-C82B5D9AA340} = {E6967798-107C-4FF4-AA9D-37BB850D206E}
+		{35054DD9-09D1-4B60-912A-8EDABB18D3D8} = {E6967798-107C-4FF4-AA9D-37BB850D206E}
+		{C98070CE-71FF-48F5-BB60-558B0A9FD754} = {26C319A4-3CCA-47FA-A169-8A1E47A779D6}
 	EndGlobalSection
 EndGlobal

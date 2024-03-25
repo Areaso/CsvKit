@@ -38,7 +38,9 @@ internal class Tokenizer(string fieldSeparator, string lineSeparator, string quo
     private readonly char _fieldSep = fieldSeparator[0];
 
     private readonly char _lineSep = lineSeparator[0];
-
+    
+    private readonly char _lineSepSecondChar = lineSeparator.Length == 1 ? '\0' : lineSeparator[1];
+    
     private readonly char _quoteSep = quoteSeparator[0];
 
     private RawTokenList TokenizeRaw(string input)
@@ -94,8 +96,6 @@ internal class Tokenizer(string fieldSeparator, string lineSeparator, string quo
 
         void HandleSeparators()
         {
-            RawToken? preview;
-
             switch (rawToken.Value) {
                 case { } s when s == quoteSeparator:
                     if (result.IsLastItemSeparator()) {
@@ -111,7 +111,19 @@ internal class Tokenizer(string fieldSeparator, string lineSeparator, string quo
                     break;
 
                 case { } s when s == lineSeparator:
-                    result.AddToken(TokenTypes.LineSeparator, lineSeparator);
+                    if (lineSeparator.Length == 1) {
+                        result.AddToken(TokenTypes.LineSeparator, lineSeparator);
+                        break;
+                    }
+
+                    if (source.PreviewNextChar() == _lineSepSecondChar) {
+                        source.NextValue();
+                        result.AddToken(TokenTypes.LineSeparator, lineSeparator);
+                    }
+                    else {
+                        result.AddToken(TokenTypes.LineSeparator, lineSeparator);
+                    }
+
                     break;
             }
         }
@@ -130,7 +142,7 @@ internal class Tokenizer(string fieldSeparator, string lineSeparator, string quo
 
                 countQuotes++;
 
-                if (source.PreviewNextValue() is { } s && s.Value == quoteSeparator) {
+                if (source.PreviewNextChar() == quoteSeparator[0]) {
                     quotedString.Append(quoteSeparator[0]);
                     source.NextValue();
                     countQuotes++;

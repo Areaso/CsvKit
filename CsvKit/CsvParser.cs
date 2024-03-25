@@ -13,14 +13,32 @@ public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSe
 
     public QuoteSeparators QuoteSeparator { get; } = quoteSep;
 
-    public List<List<string>> Run(string source)
+    public List<List<string>>? Result { get; private set; }
+
+    public bool Error { get; private set; }
+
+    public string ErrorMessage { get; private set; } = string.Empty;
+
+    public bool Run(string source)
     {
-        var tokenizer = new Tokenizer(
-            FieldSeparator.ToStringFast(),
-            LineSeparator.ToStringFast(),
-            QuoteSeparator.ToStringFast());
+        Error = false;
+        ErrorMessage = string.Empty;
         
-        return ResultList(tokenizer.Parse(source));
+        var tokenizer = new Tokenizer(FieldSeparator.ToStringFast(), LineSeparator.ToStringFast(),
+            QuoteSeparator.ToStringFast());
+
+        var parsedResult = tokenizer.Parse(source);
+
+        if (parsedResult.Error) {
+            Result = null;
+            Error = true;
+            ErrorMessage = parsedResult.ErrorMessage;
+        }
+        else {
+            Result = ResultList(parsedResult);
+        }
+
+        return parsedResult.Error;
     }
     #endregion
 
@@ -32,27 +50,27 @@ public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSe
     {
         var result = new List<List<string>>();
 
-        var lineData = new List<string>();
+        var rowData = new List<string>();
         for (var i = 0; i < tokenList.Count(); i++) {
             var token = tokenList[i];
 
             switch (token.Type) {
                 case TokenTypes.StringValue:
-                    lineData.Add(token.Value);
+                    rowData.Add(token.Value);
                     break;
 
                 case TokenTypes.FieldSeparator:
                     continue;
 
                 case TokenTypes.LineSeparator:
-                    result.Add(lineData);
-                    lineData = [];
+                    result.Add(rowData);
+                    rowData.Clear();
                     break;
             }
         }
 
-        if (result.Count > 0) {
-            result.Add(lineData);
+        if (rowData.Count > 0) {
+            result.Add(rowData);
         }
 
         return result;

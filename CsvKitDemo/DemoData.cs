@@ -1,4 +1,4 @@
-namespace CsvKit;
+namespace CsvKitDemo;
 
 public static class DemoData
 {
