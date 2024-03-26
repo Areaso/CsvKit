@@ -9,7 +9,7 @@ internal static class Program
 {
     private static void Main(string[] args)
     {
-        var sourceData = DemoData.RandomRows(10);
+        var sourceData = DemoData.RandomRows(2);
 
         var s = new Stopwatch();
         s.Start();
@@ -19,22 +19,22 @@ internal static class Program
 
         s.Stop();
 
-        Console.WriteLine($"Processed in {s.Elapsed.Microseconds} µs");
-        Console.WriteLine($"Processed in {s.Elapsed.Milliseconds} ms");
+        Console.WriteLine($"Processed in {s.Elapsed.TotalMicroseconds} µs");
+        Console.WriteLine($"Processed in {s.Elapsed.TotalMilliseconds} ms");
         Console.WriteLine("");
 
         if (result.IsSuccess() && parser.ResultsData.Count > 0) {
-            var table1 = new Table();
-            for (var i = 0; i < parser.ResultsData[0].Count; i++) {
-                table1.AddColumn(i.ToString());
-            }
-            
-            foreach (var row in parser.ResultsData) {
-                table1.AddRow(row.ToArray());
-            }
-            
-            var tableBuilder = new TableBuilder();
-            Console.WriteLine(tableBuilder.Build(table1, new CultureInfo("de_DE")));
+            // var table1 = new Table();
+            // for (var i = 0; i < parser.ResultsData[0].Count; i++) {
+            //     table1.AddColumn(i.ToString());
+            // }
+            //
+            // foreach (var row in parser.ResultsData) {
+            //     table1.AddRow(row.ToArray());
+            // }
+            //
+            // var tableBuilder = new TableBuilder();
+            // Console.WriteLine(tableBuilder.Build(table1, new CultureInfo("de_DE")));
         }
         else {
             Console.WriteLine($"Error: {result.Description}");

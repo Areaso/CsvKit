@@ -6,7 +6,7 @@ namespace CsvKitTests;
 public class ComponentTests
 {
     [TestMethod]
-    public void TestMethod1()
+    public void Test1()
     {
         var parser = new CsvParser(FieldSeparators.Semicolon, LineSeparators.Unix, QuoteSeparators.DoubleQuote);
         var status = parser.Run("a");
@@ -29,7 +29,7 @@ public class ComponentTests
     }
 
     [TestMethod]
-    public void TestMethod2()
+    public void Test2()
     {
         var parser = new CsvParser(FieldSeparators.Semicolon, LineSeparators.Unix, QuoteSeparators.DoubleQuote);
         var status = parser.Run("\"\"");
