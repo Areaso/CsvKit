@@ -11,7 +11,7 @@ internal static class Program
     {
         _ = args;
         
-        var sourceData = DemoData.RandomRows(10);
+        var sourceData = DemoData.RandomRows(5, 10, Quotings.Randomly);
 
         var s = new Stopwatch();
         s.Start();

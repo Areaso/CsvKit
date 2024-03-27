@@ -40,11 +40,11 @@ public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSe
     #region Private
     // ReSharper disable once MemberCanBeMadeStatic.Local
     [SuppressMessage("Performance", "CA1822:Member als statisch markieren")]
-    private List<List<string>> ResultList(TokenList tokenList)
+    private List<List<string>>? ResultList(TokenList tokenList)
     {
-        var result = new List<List<string>>();
+        List<List<string>>? result = null;
+        List<string>? rowData = null;
 
-        var rowData = new List<string>();
         var lastTokenType = TokenTypes.StringValue;
 
         for (var i = 0; i < tokenList.Count(); i++) {
@@ -52,18 +52,24 @@ public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSe
 
             switch (token.Type) {
                 case TokenTypes.StringValue:
+                    rowData ??= [];
                     rowData.Add(token.Value);
                     break;
 
                 case TokenTypes.FieldSeparator:
                     if (lastTokenType == TokenTypes.FieldSeparator) {
+                        rowData ??= [];
                         rowData.Add(string.Empty);
                     }
 
                     break;
 
                 case TokenTypes.LineSeparator:
-                    result.Add(rowData);
+                    result ??= [];
+                    if (rowData != null) {
+                        result.Add(rowData);
+                    }
+
                     rowData = [];
                     break;
             }
@@ -71,11 +77,12 @@ public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSe
             lastTokenType = token.Type;
         }
 
-        if (rowData.Count > 0) {
+        if (rowData is { Count: > 0 }) {
+            result ??= [];
             result.Add(rowData);
         }
 
-        return result;
+        return result is { Count: > 0 } ? result : null;
     }
     #endregion
 }
