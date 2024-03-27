@@ -13,10 +13,11 @@ public class CsvParser(FieldSeparators fieldSep, LineSeparators lineSep, QuoteSe
 
     public QuoteSeparators QuoteSeparator { get; } = quoteSep;
 
-    public List<List<string>> ResultsData { get; private set; } = [];
+    public List<List<string>>? ResultsData { get; private set; }
 
     public Result Run(string source)
     {
+        ResultsData = null;
         Result status;
 
         var tokenizer = new Tokenizer(FieldSeparator.ToStringFast(), LineSeparator.ToStringFast(),

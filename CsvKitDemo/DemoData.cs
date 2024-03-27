@@ -2,6 +2,7 @@ namespace CsvKitDemo;
 
 public static class DemoData
 {
+    // ReSharper disable once MemberCanBePrivate.Global
     public static string GetData {
         get {
             return """

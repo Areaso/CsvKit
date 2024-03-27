@@ -5,7 +5,7 @@ public sealed record Result()
     #region Static
     public static Result Success()
     {
-        return new(true, "");
+        return new(true, null);
     }
 
     public static Result Failure(string description)
@@ -15,7 +15,7 @@ public sealed record Result()
     #endregion
 
     #region Public
-    public string Description { get; } = string.Empty;
+    public string? Description { get; }
 
     public bool IsSuccess()
     {
@@ -31,7 +31,7 @@ public sealed record Result()
     #region Private
     private readonly bool _success;
 
-    private Result(bool success, string description) : this()
+    private Result(bool success, string? description) : this()
     {
         _success = success;
         Description = description;

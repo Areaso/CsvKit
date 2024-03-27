@@ -21,7 +21,7 @@ internal class TokenList
         }
 
         if (type == TokenTypes.StringValue) {
-            // IsLastItemStringValue?
+            // Is last item a StringValue?
             if (TokenItems.Count > 0 && TokenItems[^1].IsStringValue()) {
                 ErrorOccured($"Missing separator between '{TokenItems[^1].Value}' and '{value}'");
             }
@@ -48,7 +48,8 @@ internal class TokenList
         return TokenItems.Count == 0 || TokenItems[^1].IsSeparator();
     }
 
-    public List<string> ToStringList()
+    // ReSharper disable once MemberCanBePrivate.Global
+    public IEnumerable<string> ToStringList()
     {
         return TokenItems.Select(token => token.Value).ToList();
     }
@@ -57,6 +58,6 @@ internal class TokenList
     #region Private
     private List<Token> TokenItems { get; } = [];
 
-    private string _errorMessage = string.Empty;
+    private string? _errorMessage;
     #endregion
 }
