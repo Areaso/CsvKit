@@ -1,6 +1,6 @@
 namespace CsvKit;
 
-internal class RawToken(string value, bool isSeparator)
+internal readonly struct RawToken(string value, bool isSeparator)
 {
     #region Public
     public string Value { get; } = value;

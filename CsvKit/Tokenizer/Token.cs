@@ -1,6 +1,6 @@
 namespace CsvKit;
 
-internal class Token(TokenTypes type, string value)
+internal readonly struct Token(TokenTypes type, string value)
 {
     #region Public
     public TokenTypes Type { get; } = type;
