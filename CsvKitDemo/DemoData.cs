@@ -1030,6 +1030,6 @@ public static class DemoData
 
     private static void InitRows()
     {
-        _rows = GetData.Split("\n");
+        _rows = GetData.Split(Environment.NewLine);
     }
 }
