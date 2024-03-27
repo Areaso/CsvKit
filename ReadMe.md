@@ -5,6 +5,3 @@ CsvKit is a parser for CSV data. It was created as a byproduct during the develo
 
 Hosted on:
 [github.com/Areaso/CsvKit](https://github.com/Areaso/CsvKit)
-
-Concepts
---------
