@@ -11,12 +11,13 @@ internal static class Program
     {
         _ = args;
         
-        var sourceData = DemoData.RandomRows(100000);
+        var sourceData = DemoData.RandomRows(10000);
 
         var s = new Stopwatch();
         s.Start();
         
         var parser = new CsvParser(FieldSeparators.Semicolon, LineSeparators.Unix, QuoteSeparators.DoubleQuote);
+        //var result = parser.Run($"a;b{LineSeparators.Native.ToStringFast()}c;d");
         var result = parser.Run(sourceData);
         
         s.Stop();
