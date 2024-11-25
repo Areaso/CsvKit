@@ -14,7 +14,8 @@ internal class RawTokenList
 
     public List<string> ToStringList()
     {
-        return Items.Select(token => token.Value).ToList();;
+        return Items.Select(token => token.Value).ToList();
+        ;
     }
     #endregion
 }

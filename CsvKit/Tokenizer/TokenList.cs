@@ -4,16 +4,15 @@ internal class TokenList
 {
     #region Public
     public bool Error { get; private set; }
-    
+
     public string ErrorMessage {
         get => $"{_errorMessage} : near({string.Join("", ToStringList())})";
+
         private set => _errorMessage = value;
     }
 
-    public Token this[int index] {
-        get { return TokenItems[index]; }
-    }
-    
+    public Token this[int index] => TokenItems[index];
+
     public void AddToken(TokenTypes type, string value)
     {
         if (Error) {

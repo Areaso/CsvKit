@@ -10,7 +10,7 @@ public static class EnumExtensions
         return myEnum switch {
             FieldSeparators.Comma => ",",
             FieldSeparators.Semicolon => ";",
-            FieldSeparators.Tabulator => "\t",
+            FieldSeparators.Tabulator => "\t"
         };
     }
 
@@ -19,7 +19,7 @@ public static class EnumExtensions
         return myEnum switch {
             LineSeparators.Native => Environment.NewLine,
             LineSeparators.Unix => "\n",
-            LineSeparators.Windows => "\r\n",
+            LineSeparators.Windows => "\r\n"
         };
     }
 
@@ -27,7 +27,7 @@ public static class EnumExtensions
     {
         return myEnum switch {
             QuoteSeparators.SingleQuote => "'",
-            QuoteSeparators.DoubleQuote => "\"",
+            QuoteSeparators.DoubleQuote => "\""
         };
     }
     #endregion

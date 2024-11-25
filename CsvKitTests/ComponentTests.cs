@@ -5,16 +5,12 @@ namespace CsvKitTests;
 [TestClass]
 public class ComponentTests
 {
-    public static IEnumerable<object[]> TestData {
-        get {
-            return new[] {
-                new object[] { "", null },
-                new object[] { "a", new List<List<string>> { new() { "a" } } },
-                new object[] { "a;b", new List<List<string>> { new() { "a", "b" } } },
-                new object[] { "\"", new List<List<string>> { new() } },
-            };
-        }
-    }
+    public static IEnumerable<object[]> TestData => [
+        ["", null],
+        ["a", new List<List<string>> { new() { "a" } }],
+        ["a;b", new List<List<string>> { new() { "a", "b" } }],
+        ["\"", new List<List<string>> { new() }]
+    ];
 
     [TestMethod]
     [DynamicData(nameof(TestData))]
